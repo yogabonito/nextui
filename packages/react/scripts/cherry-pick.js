@@ -1,11 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-const glob = require('tiny-glob');
-const readPkgUp = require('read-pkg-up');
+import fs from 'fs';
+import path from 'path';
+import glob from 'tiny-glob';
+import readPkgUp from 'read-pkg-up';
+import { promisify } from 'util';
+import rimraf from 'rimraf';
 
 const mkDir = promisify(fs.mkdir);
-const rimraf = promisify(require('rimraf'));
 const stat = promisify(fs.stat);
 const writeFile = promisify(fs.writeFile);
 
@@ -99,7 +99,7 @@ const fileProxy = async (options, file) => {
   return JSON.stringify(proxyPkg, null, 2) + '\n';
 };
 
-const cherryPick = async (inputOptions) => {
+export const cherryPick = async (inputOptions) => {
   const options = withDefaults(inputOptions, {
     cjsDir: 'lib',
     esmDir: 'es'
@@ -121,7 +121,7 @@ const cherryPick = async (inputOptions) => {
   return files;
 };
 
-const clean = async (inputOptions) => {
+export const clean = async (inputOptions) => {
   const options = withDefaults(inputOptions);
   const files = await findFiles(options);
   await Promise.all(
@@ -129,6 +129,3 @@ const clean = async (inputOptions) => {
   );
   return files;
 };
-
-module.exports.default = cherryPick;
-module.exports.clean = clean;

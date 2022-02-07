@@ -1,14 +1,14 @@
-module.exports = (distRoot, optimize) => ({
+const build = (distRoot, optimize) => ({
   mode: 'production',
   optimization: {
-    minimize: !!optimize,
+    minimize: !!optimize
   },
   entry: './src/index.ts',
   output: {
     path: distRoot,
     filename: optimize ? 'nextui.min.js' : 'nextui.js',
     library: 'NextUI',
-    libraryTarget: 'umd',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
@@ -18,33 +18,29 @@ module.exports = (distRoot, optimize) => ({
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            envName: `dist-${optimize ? 'prod' : 'dev'}`,
-          },
-        },
-      },
-    ],
+            envName: `dist-${optimize ? 'prod' : 'dev'}`
+          }
+        }
+      }
+    ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   externals: {
     react: {
       root: 'React',
       commonjs2: 'react',
       commonjs: 'react',
-      amd: 'react',
+      amd: 'react'
     },
     'react-dom': {
       root: 'ReactDOM',
       commonjs2: 'react-dom',
       commonjs: 'react-dom',
-      amd: 'react-dom',
-    },
-    'styled-jsx': {
-      root: '_JSXStyle',
-      commonjs2: 'styled-jsx',
-      commonjs: 'styled-jsx',
-      amd: 'styled-jsx',
-    },
-  },
+      amd: 'react-dom'
+    }
+  }
 });
+
+export default build;

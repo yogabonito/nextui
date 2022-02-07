@@ -1,5 +1,5 @@
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'path';
 const libRoot = path.join(__dirname, '../lib');
 
 function main() {

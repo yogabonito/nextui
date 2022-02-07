@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "🚀 Beautiful and modern React UI library.",
   "homepage": "https://nextui.org",
+  "type": "module",
   "author": {
     "name": "Junior Garcia",
     "email": "jrgarciadev@gmail.com"
@@ -40,6 +41,7 @@
     "pre-publish": "node ./scripts/pre-publish.js",
     "publish:dry-run": "npm publish ./lib --dry-run",
     "build": "node ./scripts/build.js",
+    "esbuild": "node ./scripts/esbuild.js",
     "build:types": "yarn tsc -p ./buildconfig -d --emitDeclarationOnly --outDir types",
     "build:dev-types": "tsc -p ./buildconfig -d --emitDeclarationOnly --outDir lib/esm",
     "build:webpack": "webpack --config ./buildconfig/webpack.common.js",
@@ -106,6 +108,15 @@
     "webpack": "^5.53.0",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^3.3.11",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "astring": "1.7.5",
+    "acorn": "8.5.0",
+    "acorn-class-fields": "1.0.0",
+    "acorn-import-assertions": "1.7.6",
+    "acorn-jsx": "5.3.2",
+    "acorn-logical-assignment": "0.1.4",
+    "acorn-private-methods": "1.0.0",
+    "nodemon": "2.0.13",
+    "esbuild": "0.13.2"
   }
 }

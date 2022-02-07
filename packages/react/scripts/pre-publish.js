@@ -1,9 +1,10 @@
-const setupPackage = require('./setup-package');
-const path = require('path');
-const fse = require('fs-extra');
-const shell = require('./utils').shell;
-const step = require('./utils').step;
-const error = require('./utils').error;
+import setupPackage from './setup-package';
+import path from 'path';
+import fse from 'fs-extra';
+import { shell } from './utils';
+import { step } from './utils';
+import { error } from './utils';
+
 const libRoot = path.join(__dirname, '../lib');
 const rootDir = path.join(__dirname, '../');
 

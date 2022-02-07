@@ -1,25 +1,33 @@
-const { green } = require('chalk');
-const webpack = require('webpack');
+import chalkPkg from 'chalk';
+const { green } = chalkPkg;
 
-const path = require('path');
-const fse = require('fs-extra');
+import webpack from 'webpack';
 
-const cherryPick = require('./cherry-pick').default;
-const getConfig = require('../buildconfig/webpack.config');
+import fse from 'fs-extra';
+
+import { cherryPick } from './cherry-pick.js';
+import getConfig from '../buildconfig/webpack.config.js';
 
 const targets = process.argv.slice(2);
 
-const srcRoot = path.join(__dirname, '../src');
-const typesRoot = path.join(__dirname, '../types');
+import {
+  srcUrl,
+  typesUrl,
+  libUrl,
+  umdUrl,
+  cjsUrl,
+  esmUrl
+} from './internal/dirs.js';
 
-const libRoot = path.join(__dirname, '../lib');
-const umdRoot = path.join(libRoot, 'umd');
-const cjsRoot = path.join(libRoot, 'cjs');
-const esRoot = path.join(libRoot, 'esm');
+const srcRoot = srcUrl.pathname;
+const typesRoot = typesUrl.pathname;
 
-const step = require('./utils').step;
-const shell = require('./utils').shell;
-const error = require('./utils').error;
+const libRoot = libUrl.pathname;
+const umdRoot = umdUrl.pathname;
+const cjsRoot = cjsUrl.pathname;
+const esRoot = esmUrl.pathname;
+
+import { step, shell, error } from './utils.js';
 
 const clean = () => fse.existsSync(libRoot) && fse.removeSync(libRoot);
 
