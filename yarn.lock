@@ -3635,6 +3635,33 @@
     tiny-warning "^1.0.3"
     tslib "^2.3.0"
 
+"@react-aria/accordion@3.0.0-alpha.5":
+  version "3.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@react-aria/accordion/-/accordion-3.0.0-alpha.5.tgz#7ae7009a022bec109d6d076c592024334cb3a811"
+  integrity sha512-j8zzCJBVopn9wAtRJrQqPgdPD4FHxA6T1v231N20pXyLKYKHfEmG4TL21OLePyRdxKtVQbAWMJN6kk/HJjtoig==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/button" "^3.4.2"
+    "@react-aria/interactions" "^3.8.2"
+    "@react-aria/selection" "^3.8.0"
+    "@react-aria/utils" "^3.11.3"
+    "@react-stately/tree" "^3.2.3"
+    "@react-types/accordion" "3.0.0-alpha.4"
+    "@react-types/button" "^3.4.4"
+    "@react-types/shared" "^3.11.2"
+
+"@react-aria/button@^3.4.2":
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/@react-aria/button/-/button-3.4.2.tgz#95cb49ddc4d71f108ec08388598d0c14cf7d923a"
+  integrity sha512-21sk9dXkjAebcBlO/tEw5ZAZNAA902BL8TxvzcxHa5hoTxgWBdk9iyahJuW0ygtWD5l/POGXm7vtcdtO9VRQ/g==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.5.3"
+    "@react-aria/interactions" "^3.8.2"
+    "@react-aria/utils" "^3.11.3"
+    "@react-stately/toggle" "^3.2.6"
+    "@react-types/button" "^3.4.4"
+
 "@react-aria/checkbox@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@react-aria/checkbox/-/checkbox-3.3.0.tgz#616d8e566b7365003c5a3efb8fc9ac8764f56a05"
@@ -3907,7 +3934,7 @@
     "@react-stately/utils" "^3.4.1"
     "@react-types/checkbox" "^3.2.6"
 
-"@react-stately/collections@^3.3.5", "@react-stately/collections@^3.3.7":
+"@react-stately/collections@3.3.7", "@react-stately/collections@^3.3.5", "@react-stately/collections@^3.3.7":
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/@react-stately/collections/-/collections-3.3.7.tgz#d548ac4f352aefa9d89f6f4b800f4810bef79eb3"
   integrity sha512-SbXFsImuxzKed6tzIZeKnkO4631PPoR+apSv2J42qbUEZ0tuyD6a+vQ9lkB1P06bZ0zAjDg5oNOwqGo4yUvp/Q==
@@ -3989,6 +4016,17 @@
     "@react-types/checkbox" "^3.2.6"
     "@react-types/shared" "^3.11.2"
 
+"@react-stately/tree@3.2.3", "@react-stately/tree@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@react-stately/tree/-/tree-3.2.3.tgz#70cce984496c0d513f5d2b256149d1c0f1cb1e82"
+  integrity sha512-2hV1FCh2tLa9ihONqSxatd4fiz9BCI+sWaFfurW5PvZpgP/0GWNlX/EP0Sto4L9Rr0WNkiEwLhhKcHGYhMxMVg==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/collections" "^3.3.7"
+    "@react-stately/selection" "^3.9.3"
+    "@react-stately/utils" "^3.4.1"
+    "@react-types/shared" "^3.11.2"
+
 "@react-stately/utils@^3.4.0", "@react-stately/utils@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@react-stately/utils/-/utils-3.4.1.tgz#56f049aa1704d338968b5973c796ee606e9c0c62"
@@ -4012,6 +4050,20 @@
   dependencies:
     "@babel/runtime" "^7.6.2"
     "@react-aria/utils" "^3.11.3"
+    "@react-types/shared" "^3.11.2"
+
+"@react-types/accordion@3.0.0-alpha.4":
+  version "3.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@react-types/accordion/-/accordion-3.0.0-alpha.4.tgz#8d182ba18585a9ecbeeff76616271fceb6631dad"
+  integrity sha512-BXf/Q2/iGPdmtF9UPmGPOFpHOuk1zdHwzcrO0QofsyedKlkiY/MeqRBj4MxUfG31ftRwDru091pzxIPOUGngeA==
+  dependencies:
+    "@react-types/shared" "^3.11.2"
+
+"@react-types/button@^3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@react-types/button/-/button-3.4.4.tgz#5d6e6487ddebb038cb37291165a681db75a6c45a"
+  integrity sha512-PdHoNC2ezkzfneRdDTWJ8dOzL56MnLzjcDpnHRTbGFsWrwe+wAywls2ZJR6m411RyRim4A6+1UIKXga9AJ43uA==
+  dependencies:
     "@react-types/shared" "^3.11.2"
 
 "@react-types/checkbox@^3.2.4", "@react-types/checkbox@^3.2.6":

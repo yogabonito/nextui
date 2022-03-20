@@ -1,4 +1,17 @@
-import React, { useEffect, useMemo } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  useMemo,
+  RefAttributes,
+  PropsWithoutRef
+} from 'react';
+import { Item } from '@react-stately/collections';
+import { Node } from '@react-types/shared';
+import { TreeState } from '@react-stately/tree';
+import { useAccordionItem } from '@react-aria/accordion';
+import { mergeProps } from '@react-aria/utils';
+import { useHover } from '@react-aria/interactions';
 import CollapseIcon from './collapse-icon';
 import Expand from '../utils/expand';
 import { useCollapseContext } from './collapse-context';
@@ -53,36 +66,87 @@ const defaultProps = {
 
 type NativeAttrs = Omit<React.HTMLAttributes<unknown>, keyof Props>;
 
-export type CollapseProps = Props &
+interface CollapseItemProps<T> {
+  item: Node<T>;
+  state: TreeState<T>;
+}
+
+export type CollapseProps<T = object> = Props &
   typeof defaultProps &
   CollapseVariantsProps &
+  CollapseItemProps<T> &
   NativeAttrs & { css?: CSS };
 
-const preClass = 'nextui-collapse';
+const preClass = 'nextui-collapse-item';
 
-const Collapse: React.FC<React.PropsWithChildren<CollapseProps>> = ({
-  children,
-  title,
-  subtitle,
-  expanded,
-  shadow,
-  className,
-  divider,
-  arrowIcon,
-  showArrow,
-  disabled,
-  onChange,
-  bordered,
-  contentLeft,
-  preventDefault,
-  animated: animatedProp,
-  borderWeight,
-  index,
-  ...props
-}) => {
+const Collapse = React.forwardRef<
+  HTMLButtonElement,
+  React.PropsWithChildren<CollapseProps>
+>((collapseProps, ref: React.Ref<HTMLButtonElement | null>) => {
+  const {
+    children,
+    title,
+    subtitle,
+    expanded,
+    shadow,
+    className,
+    divider,
+    arrowIcon,
+    showArrow,
+    disabled,
+    onChange,
+    bordered,
+    contentLeft,
+    preventDefault,
+    animated: animatedProp,
+    borderWeight,
+    index,
+    state,
+    item,
+    ...props
+  } = collapseProps;
+
   const [visible, setVisible, visibleRef] = useCurrentState<boolean>(expanded);
+  8;
 
   const { isDark } = useTheme();
+  const collapseRef = useRef<HTMLButtonElement | null>(null);
+
+  const ariaCollapseItemProps = { ...props, children, item };
+
+  useImperativeHandle(ref, () => collapseRef?.current);
+
+  const {
+    buttonProps,
+    regionProps
+  }: {
+    buttonProps: Omit<
+      React.HTMLAttributes<unknown>,
+      keyof CollapseProps<unknown>
+    >;
+    regionProps: React.HTMLAttributes<HTMLElement>;
+  } = useAccordionItem(
+    ariaCollapseItemProps,
+    state,
+    ref as React.RefObject<HTMLButtonElement>
+  );
+
+  console.log({ buttonProps, regionProps });
+
+  // const isOpen = state.expandedKeys.has(item.key);
+  // const isDisabled = state.disabledKeys.has(item.key);
+  // const { isHovered, hoverProps } = useHover({ isDisabled });
+
+  // console.log({ isOpen, isDisabled, isHovered, hoverProps });
+
+  // const {
+  //   accordionProps
+  // }: {
+  //   accordionProps: Omit<
+  //     React.HTMLAttributes<unknown>,
+  //     keyof CollapseGroupProps<unknown>
+  //   >;
+  // } = useAccordionItem(ariaCollapseProps, treeState, collapseRef);
 
   const {
     values,
@@ -148,6 +212,7 @@ const Collapse: React.FC<React.PropsWithChildren<CollapseProps>> = ({
 
   return (
     <StyledCollapse
+      ref={collapseRef}
       tabIndex={disabled ? -1 : 0}
       shadow={shadow}
       bordered={bordered}
@@ -172,6 +237,7 @@ const Collapse: React.FC<React.PropsWithChildren<CollapseProps>> = ({
         aria-expanded={visible}
         aria-controls={ariaControlId}
         onClick={handleChange}
+        {...mergeProps(buttonProps)}
       >
         <div className={clsx(`${preClass}-title-container`)}>
           {contentLeft && (
@@ -201,17 +267,22 @@ const Collapse: React.FC<React.PropsWithChildren<CollapseProps>> = ({
           id={ariaControlId}
           aria-labelledby={ariaLabelledById}
           className={`${preClass}-content`}
+          {...regionProps}
         >
-          {children}
+          {item.props.children}
         </StyledCollapseContent>
       </Expand>
     </StyledCollapse>
   );
-};
+});
 
+Collapse.displayName = 'NextUI - Collapse';
 Collapse.toString = () => '.nextui-collapse';
 
-type CollapseComponent<P = {}> = React.FC<P> & {
+type CollapseComponent<T, P = {}> = React.ForwardRefExoticComponent<
+  PropsWithoutRef<P> & RefAttributes<T>
+> & {
+  Item: typeof Item;
   Group: typeof CollapseGroup;
 };
 
@@ -220,7 +291,7 @@ type ComponentProps = Partial<typeof defaultProps> &
   CollapseVariantsProps &
   NativeAttrs & { css?: CSS };
 
-export default withDefaults(
-  Collapse,
-  defaultProps
-) as CollapseComponent<ComponentProps>;
+export default withDefaults(Collapse, defaultProps) as CollapseComponent<
+  HTMLDivElement,
+  ComponentProps
+>;
