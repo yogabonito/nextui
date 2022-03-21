@@ -121,7 +121,6 @@ const Sandpack: React.FC<React.PropsWithChildren<SandpackProps>> = ({
     <SandpackProvider
       skipEval
       template={sandpackTemplate}
-      initMode="immediate"
       customSetup={{
         files: {
           ...sortedFiles,
@@ -182,6 +181,7 @@ const Sandpack: React.FC<React.PropsWithChildren<SandpackProps>> = ({
           >
             {showEditor && (
               <CodeViewer
+                hasTypescript={hasTypescript}
                 containerRef={editorContainerRef}
                 decorators={decorators}
               />

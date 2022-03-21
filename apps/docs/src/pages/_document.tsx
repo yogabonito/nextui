@@ -8,6 +8,7 @@ import Document, {
 } from 'next/document';
 import { CssBaseline } from '@nextui-org/react';
 import flush from 'styled-jsx/server';
+import globalStyles from '../styles/globalStyles';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -25,6 +26,7 @@ class MyDocument extends Document {
     };
   }
   render() {
+    globalStyles();
     return (
       <Html lang="en">
         <Head>{CssBaseline.flush()}</Head>

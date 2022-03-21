@@ -8,10 +8,10 @@ import {
   SandpackHighlightedLines
 } from '@components';
 import { Box } from '@primitives';
-import Sandpack from '../sandpack';
 import Title from './title';
 import { isEmpty } from 'lodash';
 import LiveCode, { scope } from './dynamic-live';
+import Sandpack from '../sandpack';
 import { transformCode, joinCode, getFileName } from './utils';
 import { FileCode } from './types';
 
@@ -24,6 +24,16 @@ const DynamicLive = dynamic(() => import('./dynamic-live'), {
     </div>
   )
 });
+
+// const DynamicSandpack = dynamic(() => import('../sandpack'), {
+//   ssr: false,
+//   // eslint-disable-next-line react/display-name
+//   loading: () => (
+//     <div style={{ padding: '20pt 0' }}>
+//       <Loading type="spinner" />
+//     </div>
+//   )
+// });
 
 interface Props {
   title?: React.ReactNode | string;

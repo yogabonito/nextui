@@ -18,6 +18,7 @@ import useIsMounted from '@hooks/use-is-mounted';
 import { StyledShoreMoreButton } from './styles';
 export interface CodeViewerProps {
   showTabs?: boolean;
+  hasTypescript?: boolean;
   showLineNumbers?: boolean;
   /**
    * Provides a way to draw or style a piece of the content.
@@ -46,6 +47,7 @@ const SandpackCodeViewer = React.forwardRef<CodeEditorRef, CodeViewerProps>(
       decorators,
       code: propCode,
       initMode,
+      hasTypescript,
       wrapContent,
       containerRef
     },
@@ -81,8 +83,8 @@ const SandpackCodeViewer = React.forwardRef<CodeEditorRef, CodeViewerProps>(
 
     React.useEffect(() => {
       setInternalCode(propCode || code);
-      setInternalKey(getId());
-    }, [propCode, code]);
+      hasTypescript && setInternalKey(getId());
+    }, [propCode, hasTypescript, code]);
 
     // to avoid flicker in prod mode
     if (!isMounted) {
