@@ -1,10 +1,16 @@
 import {
+  useRef,
+  RefObject,
+  useImperativeHandle,
+  useLayoutEffect,
+  MutableRefObject
+} from 'react';
+import {
   DOMRef,
   DOMRefValue,
   FocusableRef,
   FocusableRefValue
 } from '@react-types/shared';
-import { RefObject, useImperativeHandle, useRef } from 'react';
 
 export function canUseDOM(): boolean {
   return !!(
@@ -139,4 +145,25 @@ export function useFocusableRef<T extends HTMLElement = HTMLElement>(
   const domRef = useRef<T>(null);
   useImperativeHandle(ref, () => createFocusableRef(domRef, focusableRef));
   return domRef;
+}
+
+interface ContextValue<T> {
+  ref?: MutableRefObject<T>;
+}
+
+// Syncs ref from context with ref passed to hook
+export function useSyncRef<T>(
+  context: ContextValue<T | null>,
+  ref: RefObject<T>
+) {
+  useLayoutEffect(() => {
+    if (context && context.ref && ref && ref.current) {
+      context.ref.current = ref.current;
+      return () => {
+        if (context.ref?.current) {
+          context.ref.current = null;
+        }
+      };
+    }
+  }, [context, ref]);
 }

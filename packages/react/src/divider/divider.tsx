@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react';
+import { useSeparator } from '@react-aria/separator';
+import { mergeProps } from '@react-aria/utils';
 import withDefaults from '../utils/with-defaults';
 import { DividerAlign, SimpleColors } from '../utils/prop-types';
 import { getMargin } from '../utils/dimensions';
@@ -37,6 +39,7 @@ const Divider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   children,
   textColor,
   css,
+  as,
   ...props
 }) => {
   const alignCss = useMemo(() => {
@@ -54,6 +57,10 @@ const Divider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   const top = y ? getMargin(y / 2) : 0;
   const left = x ? getMargin(x / 2) : 0;
 
+  const { separatorProps } = useSeparator({
+    elementType: as
+  });
+
   return (
     <StyledDivider
       role="separator"
@@ -62,7 +69,7 @@ const Divider: React.FC<React.PropsWithChildren<DividerProps>> = ({
         height: `calc(${height} * 1px)`,
         ...(css as any)
       }}
-      {...props}
+      {...mergeProps(separatorProps, props)}
     >
       {children && (
         <StyledDividerText

@@ -15,7 +15,7 @@ import {
 import useTheme from '../use-theme';
 
 export default {
-  title: 'General/Input',
+  title: 'Inputs/Input',
   component: Input,
   decorators: [
     (Story) => (
