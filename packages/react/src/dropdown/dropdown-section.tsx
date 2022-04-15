@@ -34,8 +34,25 @@ const DropdownSection = <T extends object>({
     <Fragment>
       {item.key !== state.collection.getFirstKey() && <Divider as="li" />}
       <li {...itemProps}>
-        {item.rendered && <span {...headingProps}>{item.rendered}</span>}
-        <ul {...groupProps}>
+        {item.rendered && (
+          <span
+            {...headingProps}
+            style={{
+              fontWeight: 'bold',
+              fontSize: '1.1em',
+              padding: '2px 5px'
+            }}
+          >
+            {item.rendered}
+          </span>
+        )}
+        <ul
+          {...groupProps}
+          style={{
+            padding: 0,
+            listStyle: 'none'
+          }}
+        >
           {[...item.childNodes].map((node) => {
             let item = (
               <DropdownItem

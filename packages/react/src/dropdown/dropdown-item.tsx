@@ -32,6 +32,7 @@ const DropdownItem = <T extends object>({
   const { rendered, key } = item;
 
   const isSelected = state.selectionManager.isSelected(key);
+  const isFocused = state.selectionManager.focusedKey === item.key;
   const isDisabled = state.disabledKeys.has(key);
 
   const ref = useRef<HTMLLIElement>(null);
@@ -68,6 +69,16 @@ const DropdownItem = <T extends object>({
       {...mergeProps(menuItemProps, hoverProps)}
       ref={ref}
       data-state={getState}
+      style={{
+        background: isFocused ? 'gray' : 'transparent',
+        color: isFocused ? 'white' : 'transparent',
+        padding: '2px 5px',
+        outline: 'none',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}
       className={clsx('nextui-dropdown-item', {
         'is-disabled': isDisabled,
         'is-selected': isSelected,

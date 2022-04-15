@@ -44,6 +44,12 @@ const Dropdown = React.forwardRef(
       <ul
         {...dropdownProps}
         ref={domRef}
+        style={{
+          padding: 0,
+          listStyle: 'none',
+          border: '1px solid gray',
+          maxWidth: 250
+        }}
         className={clsx('nextui-dropdown', props.className)}
       >
         {[...state.collection].map((item) => {
