@@ -38,7 +38,7 @@ const GridContainer = React.forwardRef<
         $$gridGapUnit: gapUnit,
         display: 'flex',
         flexWrap: wrap,
-        boxZizing: 'border-box',
+        boxSizing: 'border-box',
         margin: 'calc(-1 * $$gridGapUnit)',
         width: 'calc(100% + $$gridGapUnit * 2)',
         ...(css as any)
@@ -50,7 +50,7 @@ const GridContainer = React.forwardRef<
   );
 });
 
-GridContainer.displayName = 'NextUI - GridContainer';
+GridContainer.displayName = 'NextUI.GridContainer';
 GridContainer.toString = () => '.nextui-grid-container';
 
 type GridContainerComponent<T, P = {}> = React.ForwardRefExoticComponent<

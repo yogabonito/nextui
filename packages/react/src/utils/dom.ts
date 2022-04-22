@@ -6,7 +6,6 @@ import {
   MutableRefObject
 } from 'react';
 import {
-  DOMRef,
   DOMRefValue,
   FocusableRef,
   FocusableRefValue
@@ -131,10 +130,10 @@ export function createFocusableRef<T extends HTMLElement = HTMLElement>(
 }
 
 export function useDOMRef<T extends HTMLElement = HTMLElement>(
-  ref: DOMRef<T>
-): RefObject<T> {
+  ref: RefObject<T | null> | Ref<T | null>
+) {
   const domRef = useRef<T>(null);
-  useImperativeHandle(ref, () => createDOMRef(domRef));
+  useImperativeHandle(ref, () => domRef.current);
   return domRef;
 }
 
@@ -167,3 +166,4 @@ export function useSyncRef<T>(
     }
   }, [context, ref]);
 }
+
