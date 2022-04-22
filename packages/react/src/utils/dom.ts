@@ -1,5 +1,6 @@
 import {
   useRef,
+  Ref,
   RefObject,
   useImperativeHandle,
   useLayoutEffect,
@@ -166,4 +167,3 @@ export function useSyncRef<T>(
     }
   }, [context, ref]);
 }
-
