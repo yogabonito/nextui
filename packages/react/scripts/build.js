@@ -31,26 +31,26 @@ const buildTypes = step('generating .d.ts', () => shell(`yarn build:types`));
 const copyTypes = (dest) =>
   fse.copySync(typesRootInit, dest, { overwrite: true });
 
-const babel = (outDir, envName) => {
-  shell(
-    `yarn babel ${srcRoot} -x .js,.jsx,.ts,.tsx --out-dir ${outDir} --env-name "${envName}"`
-  );
-};
+// const babel = (outDir, envName) => {
+//   shell(
+//     `yarn babel ${srcRoot} -x .js,.jsx,.ts,.tsx --out-dir ${outDir} --env-name "${envName}"`
+//   );
+// };
 
 /**
  * Run babel over the src directory and output
  * compiled common js files to ./lib.
  */
 const buildLib = step('commonjs modules', async () => {
-  await babel(cjsRoot, 'cjs');
+  await shell('yarn build:swc -C module.type=commonjs -d lib/cjs');
 });
 
 /**
  * Run babel over the src directory and output
  * compiled es modules (but otherwise es5) to /es
  */
-const buildEsm = step('es modules', async () => {
-  await babel(esRoot, 'esm');
+const buildEsm = step('es modules (SWC)', async () => {
+  await shell('yarn build:swc -C module.type=es6 -d lib/esm');
 });
 
 /**
@@ -94,8 +94,8 @@ Promise.resolve(true)
   .then(buildTypes)
   .then(() =>
     Promise.all([
-      has('lib') && buildLib(),
       has('es') && buildEsm(),
+      has('lib') && buildLib(),
       has('umd') && buildUmd(),
       copyTypes(typesRoot)
     ])
